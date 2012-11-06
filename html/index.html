@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Password hasher</title>
+
+<style type="text/css">
+
+body {
+	font-family: Verdana;
+	font-size: small;
+}
+
+input {
+	font-size: 14pt;
+	padding: 3px;
+	width: 450px;
+}
+	
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="sha1-min.js"></script>
+<script type="text/javascript">
+
+$(document).ready( function() {
+
+	$('#url').focus();
+
+	$('#password, #url').keyup( function() {
+	
+		if ($('#url').val() != '' && $('#password').val() != '') {
+			$('#hash').val( hex_sha1( $('#url').val() + $('#password').val() ).substring(0, 16) );
+		} else {
+			$('#hash').val('');
+		}
+	
+	});
+	
+	$('#hash').click( function() {
+		$(this).select();
+		if ($(this).val() != '' &&
+			prompt("Copy to clipboard: Ctrl+C, Confirm to remember url or service", $(this).val())) {
+		}
+	});
+
+});
+
+</script>
+</head>
+<body>
+
+<h1>Password hasher</h1>
+
+<p><input type="text" id="url" placeholder="url or service"></p>
+
+<p><input type="password" id="password" placeholder="master password"></p>
+
+<p>hash (first 16 chars):<br/><input type="text" id="hash" readonly="readonly"></p>
+
+</body>
+</html>
